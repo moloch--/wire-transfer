@@ -13,7 +13,7 @@ class Binary2EnglishDictionary(object):
 
     """ Encode/decode binary data to from an English dictionary """
 
-    def __init__(self, master_dict):
+    def __init__(self, master_dict, length_limit=8):
         """
         Reads in a master dictionary and ensures its long enough to encode any
         byte.
@@ -22,7 +22,7 @@ class Binary2EnglishDictionary(object):
             raise ValueError("Master dictionary does not exist or is not file")
         with open(master_dict, "rb") as dictionary_file:
             self._dictionary_data = list(set(
-                line.strip() for line in dictionary_file.readlines()
+                line.strip() for line in dictionary_file.readlines() if len(line) <= length_limit
             ))
         if len(self._dictionary_data) < 255:
             raise ValueError("Master dictionary is not long enough")

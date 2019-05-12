@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @author: moloch
-Copyright 2014
+Copyright 2018
 """
 
 import os
