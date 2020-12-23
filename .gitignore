@@ -1,4 +1,8 @@
 *.exe
+~$*
+*.vbs
+*.html
+*.xlsm
 
 # Python files
 *.py[co]

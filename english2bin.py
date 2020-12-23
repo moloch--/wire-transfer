@@ -1,10 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import os
 import sys
 import struct
 
-from cStringIO import StringIO
+from io import StringIO
 from random import SystemRandom
 from collections import defaultdict
 
@@ -84,13 +84,13 @@ class Binary2DictlessEnglish(object):
         """ Ensure we have at least one word for each index """
         for index in range(0, 256):
             if not len(self._encoder_words[index]):
-                raise ValueError("Invaild encoder, no word(s) encode to %d" % (
+                raise ValueError("Invalid encoder, no word(s) encode to %d" % (
                     index
                 ))
 
     def _precompute_word(self, word):
         """ Builds a dictionary of words that compute to an index """
-        index = self._word_sum(word)
+        index = self._word_sum(word.decode())
         self._encoder_words[index].append(word)
 
     def _word_sum(self, word):
@@ -101,7 +101,7 @@ class Binary2DictlessEnglish(object):
         """ Encodes all bytes in a file to words """
         output_file = StringIO()
         byte = input_file.read(1)
-        while byte != '':
+        while byte != b'':
             output_file.write("%s " % self._encode_byte(byte))
             byte = input_file.read(1)
         return output_file.getvalue()
@@ -117,8 +117,8 @@ class Binary2DictlessEnglish(object):
 
     def _encode_byte(self, byte):
         """ Takes a byte returns a word """
-        index = int(byte.encode('hex'), 16)
-        return self._random.choice(self._encoder_words[index])
+        index = int(byte.hex(), 16)
+        return self._random.choice(self._encoder_words[index]).decode()
 
     def _decode_byte(self, word):
         """ Takes a word returns a byte """
