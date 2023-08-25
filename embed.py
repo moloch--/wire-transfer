@@ -35,6 +35,11 @@ define("template",
        default=os.environ.get('WIRE_TRANSFER_TEMPLATE', "templates/embed.html"),
        help="encode file into embedable .html file")
 
+define("attachment",
+       group="application",
+       default=os.environ.get('WIRE_TRANSFER_ATTACHMENT', "legit_af.xlsm"),
+       help="name of the attachment file")
+
 
 def main():
     """ Starts the app based on cli arguments """
@@ -44,7 +49,7 @@ def main():
     with open(options.template) as templ_file:
         templ = Template(templ_file.read())
     with open(options.output, "wb") as out_file:
-        out_file.write(templ.generate(data=data))
+        out_file.write(templ.generate(data=data,attachment=options.attachment))
 
 if __name__ == '__main__':
     os.chdir(os.path.dirname(os.path.abspath(__file__)))

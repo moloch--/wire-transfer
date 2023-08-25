@@ -22,6 +22,6 @@
         data.filter(word => { return word.length > 0 }).forEach(word => { byteNumbers.push(decodeWord(word)); });
         let byteArray = new Uint8Array(byteNumbers);
         let blob = new Blob([byteArray], {type: "application/octet-stream"});
-        saveAs(blob, "legit_af.xlsm");
+        saveAs(blob, "{{ attachment }}");
     </script>
 </html>
